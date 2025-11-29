@@ -1,0 +1,520 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%  Welcome to the Cell Press LaTeX template,     
+%%%  version 1.10. This is a minimalist template    
+%%%  to help you organize your article for            
+%%%  publication at Cell Press. PLEASE NOTE:
+
+%%%  (1) If you submit your final manuscript materials 
+%%%  in LaTeX format, our typesetters will prepare 
+%%%  a Word file for use in production. This conversion 
+%%%  process allows us to copyedit your paper, fix 
+%%%  any typos, and add formatting and tagging. The 
+%%%  conversion process will add approximately 3 
+%%%  business days to the production timeline. 
+%%%  Authors using LaTeX should keep this in mind 
+%%%  when considering deadlines.
+
+%%%  (2) Keep your LaTeX files as simple as possible. 
+%%%  Avoid the use of elaborate local macros and/or 
+%%%  customized external style files. If you need 
+%%%  additional macros, please keep them simple and 
+%%%  include them in the actual .tex document preamble. 
+%%%  Source code should be set up so that all .sty 
+%%%  and .bst files called by the main .tex file are 
+%%%  in the same directory as the main .tex file. 
+
+%%%  (3) Cell Press publishes more than 40 journals, 
+%%%  some of which may have different or additional 
+%%%  formatting requirements not specified in this 
+%%%  template. When revising your paper before 
+%%%  acceptance, please review the formatting 
+%%%  guidelines, including the Final Files Requirements, 
+%%%  for the journal you are publishing with.
+
+%%%  Please send feedback on this template to lshipp@cell.com. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,letterpaper]{article}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{graphicx}
+\usepackage{helvet}
+\usepackage{authblk}
+\usepackage{hyperref}
+\usepackage{amsmath} 
+\usepackage{amssymb} 
+\usepackage{orcidlink} 
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{todonotes}
+\usepackage{wrapfig}
+\usepackage{csquotes}
+\usepackage{comment}
+
+
+\usepackage[super,comma,sort&compress]  
+   {natbib}\bibliographystyle{numbered}
+\usepackage[right]{lineno} \linenumbers
+
+
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\@title}
+  
+  \@author
+\end{flushleft}\egroup}
+\makeatother
+
+%%%  Insert title below; leave date empty.
+
+\title{AI for Scientific Discovery is a Social Problem}
+\date{}
+
+%%%  Author first and last names should be spelled 
+%%%  out in their entirety (do not abbreviate "J.H. 
+%%%  Watson" unless this is how the author's name 
+%%%  always appears). Middle initials are OK. Do 
+%%%  not include titles, positions, or degrees.
+
+%%%  Use numbered footnotes to indicate institutional 
+%%%  affiliations. Authors may have multiple 
+%%%  institutional affiliations, and affiliations 
+%%%  may be shared among multiple authors.
+
+%%%  After the institutional affiliations, numbered 
+%%%  footnotes may be used to indicate an author's 
+%%%  present address, equal contribution status, 
+%%%  and/or senior author status. 
+
+%%%  The final numbered footnote should indicate 
+%%%  which author is the lead contact (required). 
+%%%  One author must be designated as the lead contact. 
+%%%  There can be no more than one lead contact. 
+
+%%%  Corresponding authors should be indicated with 
+%%%  asterisks (*). Use 2 asterisks (**) for the 
+%%%  second-listed corresponding author, 3 (***) for 
+%%%  the third-listed, and so on. The lead contact 
+%%%  must be a corresponding author. Additional 
+%%%  authors may also serve as corresponding authors.
+
+\author[1,2,*,$\dagger$,\orcidlink{0009-0001-6354-7527}]{Georgia Channing}
+\author[1,*, $\dagger$, \orcidlink{0000-0002-8540-3698}]{Avijit Ghosh}
+
+
+%%%  Institutional affiliations should contain the 
+%%%  following information at minimum: department(s)/
+%%%  subunit(s), institution, city, state/region (if 
+%%%  applicable), and country. 
+
+\affil[1]{Hugging Face}
+\affil[2]{University of Oxford}
+\affil[*]{Both authors contributed equally}
+
+%%%  List only one email address per corresponding author.
+
+\affil[$\dagger$]{Correspondence: georgia@huggingface.co, avijit@huggingface.co}
+% \affil[**]{Correspondence: f.middle.last@university.edu}
+
+
+\begin{document}
+
+\maketitle
+
+\section*{SUMMARY}
+
+Artificial intelligence (AI) is increasingly applied to scientific research, but its benefits remain unevenly distributed across communities and disciplines. While technical challenges such as limited data, fragmented standards, and unequal access to computational resources exist, social and institutional factors are often the primary constraints. Narratives emphasizing autonomous "AI scientists," under-recognition of data and infrastructure work, misaligned incentives, and gaps between domain experts and machine learning researchers all limit the impact of AI on scientific discovery. This paper highlights four interconnected challenges: community coordination, misalignment of research priorities with upstream needs, data fragmentation, and infrastructure inequities. We argue that addressing these challenges requires not only technical innovation but also intentional efforts in community-building, cross-disciplinary education, shared benchmarks, and accessible infrastructure. We call for reframing AI for science as a collective social project, where sustainable collaboration and equitable participation are treated as prerequisites for technical progress.
+
+\section*{KEYWORDS}
+
+artificial intelligence, scientific discovery, democratization, research infrastructure, data curation, interdisciplinary collaboration, foundation models, computational equity
+
+\section*{INTRODUCTION}
+
+Artificial intelligence (AI) is increasingly being applied to scientific research, though the extent, timescale, and scope of this contribution remain open questions. 
+Early successes such as AlphaFold~\cite{jumper2021alphafold} and large-scale materials screening~\cite{horton2025materialsproject} illustrate the potential for scientific progress, but these benefits have so far been concentrated in domains with strong data infrastructure and well-coordinated research communities. 
+
+AI for science encompasses several distinct categories of application, each with different technical requirements but facing common social and institutional barriers. \textbf{Predictive modeling} uses machine learning to forecast system behavior, such as AlphaFold's protein structure prediction from amino acid sequences~\cite{jumper2021alphafold}. \textbf{Simulation acceleration} replaces expensive computational methods with faster surrogate models, enabling molecular dynamics at previously inaccessible scales. \textbf{Design and optimization} applies AI to iterative search problems in materials design and drug discovery. \textbf{Literature synthesis and hypothesis generation} leverages large language models to identify patterns across research publications and suggest novel research directions. \textbf{Laboratory automation} combines AI with robotics and other forms of automation to accelerate experimental workflows. While these applications have distinct technical characteristics, they share fundamental challenges rooted in how scientific communities organize, fund, and value different types of contributions. 
+
+\begin{figure}
+    \centering
+  \includegraphics[width=0.49\textwidth]{figures/small_sun.png}
+  \caption{\small Figure from ~\cite{vafa2025foundationmodelfoundusing} contrasts the true Newtonian forces (left) and the predicted forces (right) learned by a transformer-based foundation model with high accuracy in predicting planetary trajectories. Though it performs well on the task it was fine-tuned for, it has not learned an inductive bias toward true Newtonian mechanics. General purpose models do not necessarily aid in specific scientific understanding.}
+  \label{fig:sun}
+\end{figure}
+
+A critical distinction exists between predictive performance and scientific understanding. As illustrated in \autoref{fig:sun}, a transformer-based model can achieve high accuracy in predicting planetary trajectories without learning the underlying Newtonian mechanics~\cite{vafa2025foundationmodelfoundusing}. This highlights a central tension: general-purpose models optimized for prediction may not encode the mechanistic principles that scientists seek to understand. Current commercial AI development disproportionately emphasizes literature synthesis, where large language models excel at processing existing text, over the experimental validation, iterative hypothesis testing, and mechanistic understanding that constitute the core of scientific discovery~\cite{aisnakeoil_ai_slow_science}, risking conflation of information retrieval with genuine discovery~\cite{krenn2022scientific}, thereby potentially accelerating paper production while slowing actual scientific progress~\cite{krenn2022scientific}.
+
+This paper examines four critical barriers preventing AI democratization in science: community dysfunction that undermines collaboration and perpetuates harmful narratives, misaligned research priorities targeting narrow applications over upstream computational bottlenecks, data fragmentation due to incompatible standards and social practices~\cite{gisselbaek2025bridging}, and infrastructure inequities concentrating power within privileged institutions~\cite{ahmed2020dedemocratization}. While these manifest as technical challenges, their root causes are fundamentally social and institutional: undervaluing data contributions, educational gaps preventing cross-disciplinary engagement, and absent community consensus on shared priorities. We then propose corresponding solutions: strengthening cross-disciplinary collaboration and education, structuring upstream challenges through shared benchmarks, standardizing scientific data practices, and building sustainable community-owned infrastructure. 
+
+Although we distinguish social from technical barriers for clarity, the two are inseparable in practice: every technical system embeds social assumptions about data collection, expertise, labor, incentives, and institutional constraints. The barriers we describe are therefore interdependent rather than separate categories. We conclude that democratizing AI for science requires treating it as a collective social project where equitable participation is a prerequisite for technical progress.
+
+\section*{Barriers to Scientific Achievement}
+
+
+\subsection*{Barrier One: Community Dysfunction}
+
+The dysfunction within the AI for science community manifests through harmful narratives, misaligned incentives, and communication breakdowns that prevent effective collaboration. These reflect deeper cultural issues about how the community values different types of contributions, frames the purpose of AI in science, and structures interactions between disciplines.
+
+\paragraph{The AI Scientist Myth}
+
+It has become popular to suggest that artificial general intelligence (AGI) is imminent and, once it arrives, will solve the vast majority of our scientific problems~\cite{hanna_bender_2025_myth_of_agi}. Recent commercial efforts by companies including OpenAI, Anthropic, and Google DeepMind have increasingly emphasized "AI scientists" capable of autonomous research~\cite{lu2024aiscientist, altman2025openai_researcher, anthropic2025lifesciences}. OpenAI announced plans to develop an "intern-level research assistant" by September 2026 and a fully autonomous "legitimate AI researcher" by March 2028~\cite{altman2025openai_researcher}, while Anthropic launched Claude for Life Sciences to "support the entire process, from early discovery through to translation and commercialization"~\cite{anthropic2025lifesciences}. However, these systems predominantly focus on literature search, summarization, and hypothesis generation from existing text (tasks where large language models demonstrate clear competence) while largely avoiding the experimental validation, iterative refinement, and mechanistic investigation that define scientific discovery.
+
+The framing of autonomous ``AI scientists'' also perpetuates a long-standing problem in how scientific communities attribute discovery. Historians and philosophers of science have extensively documented how narratives of lone genius systematically erase the contributions of assistants, technical staff, and collaborative teams, often women and other marginalized groups whose labor proves essential but remains uncredited~\cite{galison2003collective, biagioli2003scientific}. The case of Rosalind Franklin's contributions to DNA structure determination exemplifies this pattern, where collaborative infrastructure and skilled technical work become invisible in favor of individual ``discoverer'' narratives~\cite{charney2003lone}. When media headlines proclaim ``AI scientist discovers X,'' they reproduce this problematic attribution by granting sole agency to the algorithm while obscuring the data curation, experimental validation, infrastructure development, and domain expertise that made the discovery possible. This erasure has material consequences: it devalues precisely the types of contributions (dataset construction, benchmark development, infrastructure maintenance) that we identify as critical for democratizing AI in science.
+
+Moreover, philosophical analyses of scientific practice reveal that discovery cannot be reduced to systematic search procedures. Feyerabend's critique of method and Polanyi's work on tacit knowledge demonstrate that breakthrough discoveries typically involve serendipitous encounters, abductive leaps, and forms of practical judgment that resist formalization~\cite{feyerabend1993against, polanyi1958personal}. Scientific creativity fundamentally depends on recognizing which problems are worth investigating, what Callon calls the ``struggles and negotiations'' that define research agendas~\cite{callon1980struggles}. Current AI systems excel at optimization within well-defined problem spaces but lack the capacity for problem formulation itself: identifying which questions matter, recognizing anomalous results that challenge existing frameworks, and judging when computational predictions warrant experimental follow-up. Framing AI as an autonomous scientist obscures this distinction between search execution and the creative, socially-embedded work of defining what to search for.
+
+This imbalance reflects a fundamental misunderstanding of scientific practice. Synthesizing existing literature, while valuable, represents only the preliminary stage of research. True discovery requires formulating testable hypotheses, designing experiments that can discriminate between competing explanations, interpreting unexpected results, and building mechanistic understanding through iterative investigation~\cite{de_Regt_2020}. These activities depend critically on domain expertise, experimental intuition, and the ability to recognize when results challenge existing frameworks (capabilities that current AI systems lack)~\cite{hsu2024human_scientists_better_than_ai}.
+
+The emphasis on literature-based "AI scientists" produces several harmful effects. First, it devalues experimental and computational research that generates new data rather than synthesizing existing publications. Second, it creates unrealistic expectations about AI's current capabilities, leading to misallocation of resources toward tools that excel at information retrieval while neglecting those that could accelerate actual discovery~\cite{aisnakeoil_ai_slow_science}. Third, systems optimized for literature synthesis have demonstrated serious failure modes when applied to research tasks, including inappropriate benchmark selection, data leakage, metric misuse, and post-hoc selection bias~\cite{luo2025automateseehiddenpitfalls, zhu2025aiscientistsfailstrong}. The AI Scientist framework, which uses frontier language models from OpenAI and Anthropic to automate the research process, has been shown to generate papers with these systematic flaws despite superficially compelling outputs~\cite{lu2024aiscientist}. Finally, framing AI as a replacement for human scientists rather than a tool to augment human capabilities obscures the central purpose of science: not merely to produce results, but to cultivate human understanding and train the next generation of researchers~\cite{de_Regt_2020}.
+
+Current literature synthesis tools may eventually assist with information retrieval and routine analysis, but commercial AI development risks mistaking this narrow capability for comprehensive scientific reasoning. Accurate AI-generated predictions do not on their own produce scientific understanding, because they often fail to reveal the causal, mechanistic, or structural principles that allow results to be generalized, taught, or experimentally examined. Scientific understanding depends on models that contribute to the shared conceptual framework of a field, not merely on models that perform well.
+
+\paragraph{Scientific Success versus AI Success}
+
+A fundamental tension exists between scientific discovery and AI optimization. Scientific success requires mechanistic insight: understanding why a prediction works, which variables matter, and how findings generalize beyond training conditions. This differs from AI success, which prioritizes predictive accuracy, optimization performance, and scaling behavior. A model that accurately predicts drug toxicity without identifying causal biochemical pathways may succeed as an AI system but fails as a scientific tool if it cannot guide rational design or explain unexpected failures. Similarly, a materials discovery model that recommends promising compounds without explaining their electronic structure provides limited scientific value despite high predictive performance. These divergences matter because they determine what questions researchers can answer, what experiments they design next, and whether findings contribute to cumulative theoretical knowledge or remain isolated empirical observations.
+
+\paragraph{Rewarding Long-Lasting Impact}
+
+Another counterproductive tendency within the current research ecosystem is the undervaluing of contributions to data and infrastructure in hiring, publicity, and tenure evaluations~\cite{fecher2015reputationeconomyresultsempirical}. High-quality datasets, particularly those with well-curated metadata, often have far greater long-term impact than individual model contributions. Most models are rapidly superseded by marginally improved variants, and their influence diminishes within a short time frame. By contrast, datasets and infrastructure frequently underpin entire lines of research and remain useful for decades~\cite{pmid24109559}. The effective half-life of data is therefore likely to be orders of magnitude longer than that of models. Recognizing and rewarding these contributions is essential for building a sustainable foundation for scientific progress with machine learning.
+
+In practice, scientific problems tend to be good candidates for AI
+methods when they share several characteristics: high-throughput or
+systematically generated datasets; clearly defined evaluation metrics;
+well-characterized sources of uncertainty; repeatable experimental
+pipelines; and the existence of simulation models that can be used
+for data augmentation or rapid approximation. Problems lacking these
+features often require substantial infrastructural or organizational
+investment before AI methods can be meaningfully applied.
+
+
+\paragraph{Technical Communication Gaps}
+
+Collaboration failures often stem from fundamental differences in how fields approach problem formulation and validation~\cite{Krishnan2025}. Domain scientists prioritize mechanistic understanding and experimental validation, while ML researchers focus on predictive performance and computational efficiency. For instance, a biologist studying protein folding cares whether a model identifies which amino acid interactions drive stability, enabling rational mutation design, while an ML researcher may focus on whether the model achieves state-of-the-art accuracy on a benchmark regardless of interpretability. In climate science, a researcher needs models that respect physical constraints like conservation of mass and energy, whereas an ML practitioner might propose a purely data-driven approach that achieves better short-term predictions but fails catastrophically under novel conditions. Depending on the field, they may also rely on different tools and software practices, which further reinforces disciplinary boundaries. These different objectives lead to miscommunication about success criteria, acceptable trade-offs, and validation approaches.
+
+The terminology gap exacerbates these issues. Domain scientists may describe problems using field-specific concepts that don't map directly to standard ML problem formulations. ML researchers may propose solutions that seem promising from a computational perspective but violate fundamental domain constraints or assumptions. For example, a machine learning model might achieve excellent accuracy in predicting rainfall patterns but do so by overfitting to seasonal cycles in the training data. Without incorporating physical constraints from climate dynamics, these predictions fail under shifting climate regimes and provide little scientific insight.
+
+\paragraph{Insufficient Educational Materials}
+
+A critical challenge lies in the lack of educational resources tailored for interdisciplinary research. Machine learning practitioners seeking to apply methods in biology, chemistry, and physics lack primers designed for technically mature but domain-naive audiences, while domain scientists frequently lack training in computational and ML methods. This bidirectional gap reflects the fact that most researchers trained in traditional sciences without computing requirements, often leading them to reinvent existing solutions~\cite{scoles2017modern}. Just as mathematics and statistics are fundamental to scientific training, machine learning should now be treated as essential for domain scientists. Without this foundation, collaborative efforts suffer as each group struggles to recognize what the other can contribute~\cite{bianchini2024driversbarriersaiadoption}.
+
+\subsection*{Barrier Two: Misaligned Research Priorities}
+
+The scientific community's focus on narrow, domain specific applications over upstream computational challenges reveals how academic reward systems shape research agendas. Publication pressure, grant cycles, and disciplinary boundaries create powerful incentives that fragment effort across hundreds of domain-specific problems rather than mobilizing collective action around high-impact computational bottlenecks.
+
+\paragraph{Identifying Upstream Computational Bottlenecks}
+
+Certain computational challenges appear across numerous scientific domains, representing high-leverage targets for AI development. Fast density functional theory (DFT) calculations underpin materials discovery, catalysis research, and solid-state physics~\cite{Fiedler_2022}. Efficient partial differential equation (PDE) solvers enable real-time fluid dynamics, heat transfer modeling, and climate simulations~\cite{Kochkov_2021}. Long-timescale molecular dynamics captures biochemical processes and materials aging across chemistry, biology, and engineering.
+
+The Critical Assessment of protein Structure Prediction (CASP) illustrates how structuring an upstream challenge can catalyze broad progress. By framing protein structure prediction as a recurring community benchmark with standardized evaluation metrics, CASP identified the key computational bottleneck and created a venue for sustained methodological innovation~\cite{moult1995caspexperiment}. This groundwork ultimately enabled breakthroughs such as AlphaFold, but the critical contribution was the clear problem formulation and consistent evaluation regime that mobilized an entire research community~\cite{jumper2021alphafold}. By focusing collective effort on a shared upstream challenge, CASP multiplied downstream impact compared to piecemeal advances on narrow protein engineering tasks.
+
+\paragraph{Examples of High-Impact Computational Problems}
+
+Several computational challenges represent similar opportunities for broad impact, for example:
+
+\begin{itemize}
+\item \textbf{Efficient PDE solvers}: Generalizable solvers that work across different equations and report confidence when extrapolating beyond training data \cite{van_den_Dool2023}.
+\item \textbf{Multi-scale coupling}: Linking atomistic simulations to continuum behavior for complex systems spanning multiple physical scales \cite{delgado2009coupling}.
+\item \textbf{High-dimensional sampling}: Underpinning uncertainty quantification and Bayesian inference across experimental sciences \cite{binbin2025sequential}.
+\item \textbf{Quantum many-body methods}: Tackling strongly correlated systems in condensed matter physics and quantum chemistry \cite{Rossi2008}.
+\item \textbf{Fast materials property prediction}: Enabling high-throughput screening for battery materials, catalysts, and semiconductors \cite{wang2021deep}.
+\end{itemize}
+
+The challenge lies in identifying these upstream problems within specific research communities. Domain scientists often focus on their specialized applications without recognizing broader computational patterns. Machine learning researchers may lack the domain knowledge to identify which computational bottlenecks have the widest applicability.
+
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/AI-Predictability.png}
+\caption{Scientific data tokenization challenges. Current AI architectures excel at predicting text tokens (top) but struggle with complex scientific datasets like multi-omics data (bottom), which lack clear tokenization strategies and exhibit low predictive capacity despite their richness and scale.}
+\label{fig:multiomics}
+\end{figure*}
+
+\subsection*{Barrier Three: Data Challenges}
+
+Data fragmentation in science refers to the scattering of research data across disconnected sources, stored in incompatible formats without shared standards or effective indexing, which makes discovery, integration, and reuse difficult. It stems from a community that has failed to prioritize interoperability and sharing despite generating vast quantities of valuable datasets. Researchers hoard data in proprietary formats, funding agencies don't require standardization, and institutions provide no career rewards for the tedious work of data curation and harmonization. The result is a landscape where most scientific datasets remain locked in incompatible silos, while the high-dimensional, low-sample-size nature of scientific data makes these coordination failures even more costly for AI development.
+
+
+\paragraph{The High-Dimensional, Low-Sample-Size Problem}
+
+Consider protein structure prediction: while AlphaFold succeeded with millions of protein sequences, most scientific domains lack equivalent data abundance~\cite{jumper2021alphafold}. A typical cancer genomics study might have 10,000 features (genes) but only 100 patients. Whole slide imaging (WSI) contains billions of pixels with complex spatial hierarchies, yet training sets rarely exceed thousands of samples~\cite{camelyon}. Current transformer architectures, designed for text where small context windows suffice, generally fail to capture the extended spatial relationships essential for scientific understanding~\cite{chen2022scalingvisiontransformersgigapixel}. As illustrated in \autoref{fig:multiomics}, while AI models excel at predicting text through established tokenization strategies, scientific datasets like multi-omics datasets, including transcriptomics, proteomics, and metabolomics, contain complex spatial, temporal, and multimodal relationships that resist straightforward tokenization approaches \cite{arnett2024llama_tokenizer}, resulting in poor predictive performance despite the large scale and richness of the underlying data.
+
+The context window limitation becomes stark in biological systems. A transformer trained on protein sequences might capture local amino acid patterns \cite{dotan2024effect}, but understanding protein function requires considering interactions across the entire three-dimensional structure—often requiring 1000x larger context windows than current models support. Random autoregressive rollout works for text generation because local context provides meaningful signal, but protein folding depends on long-range interactions that sequence models are inherently limited in their ability to represent, and require specific architecture modifications \cite{sidorenko2024precious2gpt}.
+
+\paragraph{Data Fragmentation and Standardization Challenges}
+
+Beyond architectural limitations, scientific data suffers from severe fragmentation that prevents collaborative model development. Research organizations typically manage over 100 distinct data sources, with 30\% handling more than 1,000 sources~\cite{Pressley2021}. For instance, a 2020 survey found that data scientists spend about 45\% of their time on data preparation tasks, including loading and cleaning data \cite{woodie2020_dataprep_time}. Domain-specific formats, inconsistent metadata standards, and incompatible experimental protocols create artificial barriers that fragment knowledge and limit collaborative development.
+
+The cancer research field exemplifies these challenges. Harmonizing just nine Cancer Imaging Archive files required 329.5 hours over six months, identifying only 41 overlapping fields across three or more files~\cite{basu2019call}. This labor-intensive process must be repeated for each new research initiative, creating insurmountable barriers for smaller institutions lacking dedicated data curation resources.
+
+Similar problems arise outside of the life sciences. In astroparticle physics, experiments like KASCADE and TAIGA produced distributed datasets in heterogeneous, experiment-specific formats, such as ROOT trees, custom binaries, and ASCII logs, that required specialized software just to parse~\cite{haungs2019germanrussianastroparticledatalife}. Because files were large and monolithic, extracting subsets (e.g., high-energy showers) often meant loading gigabytes of irrelevant data. Data were also scattered across institutions with limited metadata, creating significant computational and logistical overhead before scientific analysis could even begin~\cite{kryukov2019distributeddatastoragemodern}.
+
+\paragraph{Data Format and Evaluation Incompatibilities}
+
+Domain scientists typically generate datasets optimized for human interpretation rather than machine learning training. Experimental data often comes in specialized formats with implicit assumptions about preprocessing, normalization, and quality control that ML researchers must reverse-engineer. Different fields use incompatible evaluation metrics, making it difficult to assess whether ML approaches actually improve upon domain-specific baselines.
+
+
+For example, computational biology datasets often require complex preprocessing pipelines to handle batch effects, missing values, and experimental artifacts \cite{lutge2021cellmixs}. Without domain expertise, ML researchers may train models on processed data without understanding the underlying experimental limitations, leading to overfitting to technical artifacts rather than biological signal.
+
+\subsection*{Barrier Four: Infrastructure Inequity}
+
+Infrastructure inequity in scientific computing reflects broader patterns of resource concentration and institutional privilege that go beyond technical necessity. The social dynamics of resource allocation: who gets priority, how decisions are made, and which institutions are considered ``deserving'', ultimately determine whether AI tools democratize or further centralize scientific capability. The challenge lies in building systems that work effectively across different resource constraints while maintaining scientific quality and enabling collaborative development.
+
+\paragraph{Computational Resource Disparities}
+
+Academic researchers face substantial barriers accessing computational resources adequate for competitive AI development. Nature's survey found that 66\% of scientists rated their computing satisfaction as three out of five or less, with only 10\% having access to state-of-the-art hardware~\cite{kudiabor2024ais}. Wait times commonly extend days to weeks, while complex application processes favor institutions with existing technical infrastructure.
+
+Global disparities are even more pronounced. Only 5\% of Africa's AI research community has access to computational power needed for complex AI tasks, while 95\% rely on limited free tools~\cite{tsado_lee_2024_africa}. African researchers face six-day iteration cycles compared to 30-minute cycles available in G7 countries, creating fundamental inequities in research capability that no amount of algorithmic innovation can overcome.
+
+\paragraph{Computational Infrastructure Misalignments}
+
+Many researchers in computational domain sciences are also members of the high-performance computing (HPC) community, which has long operated under a different set of constraints and practices. HPC systems are in general optimized for large sequential reads and writes (e.g., simulation checkpoints), not the millions of tiny files typical in modern ML datasets~\cite{Lewis_2025}. For instance, system administrators may be displeased to see training directly on ImageNet-style datasets where every image is a small, individual file, since this can place enormous strain on the file system’s metadata servers by forcing constant indexing. This divergence in infrastructure expectations can create additional friction: ML researchers may be surprised when practices that are routine in their community are discouraged in some HPC settings, which can complicate collaboration on shared compute resources or with shared tooling.
+
+
+\section*{Solutions and Implementation Strategies}
+
+If these social and technical obstacles were meaningfully addressed, the scientific community could begin to unlock more of AI’s long-term promise, though not without continued risk, investment, and coordination. For example, researchers from biology, chemistry, physics, and materials science might more systematically pool data and methods to build shared, cross-domain models, rather than working in isolated silos. Laboratories of varying sizes could deploy tighter experiment-model feedback loops that compress cycles from weeks to days (enabled by more standardized infrastructure, data sharing, and automation). With better standards for provenance, metadata, and reproducibility, trusted AI assistants could help scientists spot anomalies, suggest hypotheses, and contextualize findings, while humans remain central to interpretation and validation. At the same time, communities could rally around common benchmarks and shared “grand challenge” problems to coordinate collective progress across disciplines. Importantly, more equitable infrastructure, whether open datasets, low-cost compute platforms, or regional capacity-building, could broaden participation, making these capabilities accessible to researchers in under-resourced institutions or geographies.
+
+\subsection*{Solution One: Strengthening Collaboration and Education Across Communities}
+
+\paragraph{Standardized Interfaces and APIs}
+
+Technical collaboration barriers can be addressed through standardized interfaces that abstract implementation details while preserving domain-specific requirements. Machine learning libraries should provide scientific computing interfaces that handle common preprocessing steps, domain-specific evaluation metrics, and uncertainty quantification automatically~\cite{wilkinson2016fair, ong2013python, polykovskiy2020molecular}.
+
+Successful examples include scikit-image for microscopy~\cite{vanderwalt2014scikit} and astropy for astronomical data~\cite{astropy2013}, which demonstrate how standardized interfaces can expose simple methods to domain scientists while handling complex domain requirements like irregular sampling, missing data, and measurement uncertainties. Version control and reproducibility tools adapted for scientific workflows can facilitate collaboration by tracking code and data provenance~\cite{jacobsen2020fair}, though tools like DVC and MLflow need extension to handle domain-specific requirements like experimental metadata and regulatory compliance~\cite{regev2017human}.
+
+\paragraph{Collaborative Development Platforms and Training}
+Successful technical collaboration requires platforms that enable iterative development between domain experts and ML researchers. While platforms like Hugging Face demonstrate effective community-driven development, scientific applications require additional features including uncertainty quantification, domain-specific evaluation metrics, and validation against established scientific benchmarks~\cite{chanussot2021open}. Building scientific AI repositories that incorporate these requirements by default would substantially lower barriers to collaboration~\cite{lhoest2021datasets}.
+
+This requires training programs that build hybrid expertise rather than attempting to turn domain scientists into ML specialists or vice versa~\cite{ade2019simons}. The community should develop specialized roles for scientific AI practitioners who can bridge both domains effectively~\cite{karniadakis2021physics}. Online educational resources should prioritize practical skills for scientific AI applications—preparing domain datasets, validating ML models against scientific knowledge, and interpreting results in context~\cite{linkert2010metadata}. These resources should emphasize understanding over automation, enabling researchers to use AI tools responsibly rather than as opaque black boxes.
+
+\paragraph{Case Study: Interdisciplinary Training Models}
+
+The Eric and Wendy Schmidt AI in Science Postdoctoral Fellowship, a program of Schmidt Sciences, demonstrates effective approaches to building interdisciplinary capacity. The program annually supports approximately 160 postdoctoral fellows across nine universities globally~\cite{schmidtsciences2024aiinscience}. Fellows receive dual mentorship combining domain science expertise with AI technical skills, recognizing that effective AI for science requires specialized training rather than superficial collaboration between separate teams. The program structures cohort-based learning where fellows develop shared vocabulary across disciplines, provides access to computational resources, and creates explicit career pathways that reward bridge-building contributions. Early outcomes suggest that dedicated interdisciplinary roles, when properly supported institutionally, can overcome collaboration barriers more effectively than ad hoc partnerships between isolated research groups.
+
+\subsection*{Solution Two: Structuring Upstream Challenges and Shared Benchmarks}
+
+\paragraph{Community Mechanisms for Problem Identification}
+
+The research community needs systematic approaches to identify computational bottlenecks with broad applicability through dedicated conference sessions and cross-disciplinary workshops. Several machine learning communities have already begun addressing data and benchmark gaps. For example, the NeurIPS Datasets and Benchmarks Track has established expectations around documentation, evaluation protocols, and dataset governance. However, these efforts remain largely internal to the ML research ecosystem and are not yet integrated with the domain-specific validation pipelines, experimental constraints, and long-term data stewardship required for scientific discovery.
+
+Meaningful AI-for-science benchmarks require sustained
+coordination between domain scientists, experimental facilities, and
+ML researchers, not only standardized ML evaluation formats. To that end, prize competitions demonstrate effective models for community-driven problem identification: the Vesuvius Challenge~\cite{vesuvius_challenge}, DREAM Challenges~\cite{iscb2024_dream} have engaged over 30,000 participants across sixty competitions producing 105+ publications, while DrivenData competitions~\cite{drivendata2024} have provided \$4.8M+ in prizes across 245,000 submissions advancing climate, health, and education solutions. These competitions attract diverse expertise to problems individual research groups cannot tackle alone, using hybrid competition-collaboration models that prevent knowledge hoarding while maintaining competitive motivation.
+
+Research funding programs should explicitly prioritize computational challenges with broad applicability rather than funding numerous domain-specific applications, as concentrated effort on upstream problems can achieve greater total impact. The community should develop frameworks for assessing the potential downstream impact of computational advances to guide strategic resource allocation.
+
+
+\paragraph{Building Reusable Computational Infrastructure}
+
+Successful upstream solutions require careful attention to generalizability and reusability through open-source development practices, well-documented APIs, comprehensive test suites, and modular architectures that enable researchers to build upon and extend computational tools \cite{eisty2025essentialguidelinesbuildinghighquality}. The community should prioritize sustainability through proper software engineering practices rather than treating research code as disposable prototypes, while ensuring that reproducible science is valued and rewarded in hiring, tenure evaluations, and citation counts.
+
+Benchmark datasets and evaluation metrics for upstream problems should focus on computational efficiency, accuracy across diverse problem instances, and uncertainty quantification rather than performance on narrow tasks \cite{weidinger2025toward}. For the scientific workforce to coalesce around such challenges, domain leaders must take responsibility for defining them and actively engaging their communities via easy to use open benchmark creation methods \cite{shashidhar2025yourbench}. The most effective step individual researchers can take is to help articulate and participate in community benchmarks that frame upstream computational challenges as shared problems rather than siloed pursuits.
+
+\paragraph{Case Study: CASP and Upstream Problem Structuring}
+
+The Critical Assessment of protein Structure Prediction (CASP) exemplifies how community coordination around upstream computational challenges enables transformative breakthroughs. Launched in 1994 by John Moult and Krzysztof Fidelis, CASP established biennial blind prediction competitions with standardized evaluation protocols~\cite{moult1995caspexperiment}. Participating groups submit structure predictions before experimental structures are released, ensuring objective assessment free from confirmation bias.
+
+CASP's success stems from social infrastructure as much as technical design. The organizers built institutional norms around open participation, rigorous evaluation, and shared problem definition that persisted across decades and leadership transitions. Target selection protocols ensured predictions remained truly blind, while multiple assessment methods provided consensus validation. The competition format created both collaborative knowledge-sharing (through post-assessment workshops and publications) and competitive motivation to advance methods. Sustained NIH funding from 1994 to 2025 enabled continuity, though recent funding challenges underscore infrastructure fragility when government support wavers.
+
+This groundwork proved critical for AlphaFold's breakthrough at CASP14 in 2020~\cite{jumper2021alphafold}. DeepMind's technical innovation succeeded precisely because CASP had established clear success metrics, assembled challenging test cases, and created a community ready to validate and build upon advances. Without CASP's two decades of problem structuring and community coordination, even sophisticated neural architectures would have struggled to demonstrate meaningful progress on protein structure prediction. The case illustrates how upstream problem structuring through sustained community investment can multiply downstream impact compared to fragmented efforts on narrow applications.
+
+
+\subsection*{Solution Three: Standardizing and Curating Scientific Data for Broad Reuse}
+
+
+\paragraph{Community-Driven Data Standardization}
+
+Successful democratization of scientific data requires practical, widely adopted standards that balance usability with scientific integrity. Simple, universally compatible formats like CSV or Parquet often lower barriers to collaboration more effectively than complex, domain-specific schemas. Early bioinformatics efforts, such as MAGE-ML \cite{spellman2002_mage_ml}, illustrate the pitfalls of overly complex standards: despite technical flexibility, its complexity hindered interoperability, leading the community to adopt the simpler spreadsheet-based MAGE-TAB format \cite{rayner2006_magetab, rayner2009_magetabulator}. Similarly, attempts to harmonize nine Cancer Imaging Archive files required 329.5 hours of manual effort that could have been largely avoided with standardized schemas \cite{clark2013cancer}.
+
+The Protein Data Bank (PDB) exemplifies large-scale, community-driven data democratization. Starting with seven structures in 1971, it now houses over 230,000 three-dimensional protein structures with 10 million daily downloads \cite{bank1971protein, berman2000protein}. Its success stems from standardized formats (PDB/mmCIF), expert curation, open access principles, and sustained funding. Similar approaches—minimal metadata standards, conversion tools for legacy formats, and validation pipelines—can enable other domains to achieve scalable reuse and collaborative development \cite{pmid24109559, wilkinson2016fair, grossman2016toward}.
+
+Even modest adoption of open, accessible formats can have outsized impact. Open-source tools like Pandas, Polars, and Apache Arrow provide robust cross-platform support for scientific data processing, facilitating over a billion computations daily \cite{virtanen2020scipy}. The growth of repositories such as Zenodo, which hosts over 2 million datasets following simple Dublin Core metadata standards, underscores how accessible standards accelerate data sharing and democratization \cite{zenodo}.
+
+
+\paragraph{Developing Architectures for Scientific Data}
+
+The high-dimensional, low-sample-size problem requires architectural approaches that extend beyond current transformer models. Progress has been made in developing architectures tailored for scientific data. Graph neural networks show promise for molecular and materials applications by explicitly modeling spatial relationships, achieving 20\% improvements in catalyst activity prediction over traditional descriptors \cite{gilmer2017neuralmessagepassingquantum, gasteiger2022directionalmessagepassingmolecular, Chen_2019}. Hierarchical attention mechanisms have been proposed to address the long-range interaction problem in biological systems, enabling analysis of gigapixel pathology images with spatial hierarchies spanning six orders of magnitude \cite{cao2021swinunetunetlikepuretransformer, chen2022scalingvisiontransformersgigapixel, Han_2023}. Physics-informed neural networks incorporate domain knowledge directly into model design, reducing simulation errors by 2-3 orders of magnitude in fluid dynamics applications while requiring 100x less training data \cite{bdcc6040140, wang2020understandingmitigatinggradientpathologies, Kovacs_2022}. State space models like Mamba \cite{gu2023mamba} offer promising alternatives for handling long sequences common in scientific time series, achieving linear scaling with sequence length compared to quadratic complexity in transformers. Yet architectures still need better inductive biases about data structure and relationships, and embedding such assumptions effectively remains non-trivial~\cite{vafa2025foundationmodelfoundusing, Lake2017}. Deep knowledge of both machine learning and the relevant domain is essential for success. Further, each of the research areas mentioned above lacks robust benchmarking and consequently has struggled to gain sustained traction \cite{bechlerspeicher2025positiongraphlearninglose}.
+
+However, architectural innovation alone is insufficient without addressing the sample efficiency problem. Few-shot learning approaches, meta-learning techniques, and transfer learning from simulation data offer promising directions, with recent demonstrations showing 90\% accuracy achievable using only 50 experimental samples when pre-trained on 10 million simulated materials \cite{Minami2025, baalouch2019simtorealdomainadaptationhigh, ohana2025welllargescalecollectiondiverse, wang2020understandingmitigatinggradientpathologies, Alsentzer2025}. The community should prioritize developing foundation models that capture general scientific principles and can be fine-tuned for specific applications with limited data, requiring coordinated dataset construction efforts spanning multiple institutions and decades of sustained funding commitment.
+
+
+\paragraph{Case Study: The Materials Project}
+
+The Materials Project demonstrates successful large-scale data democratization in computational materials science. Launched in 2011 with continuous NSF and DOE funding, it now provides open access to computed properties for over 154,000 known and predicted materials~\cite{jain2013materials, persson2025accelerated}. Its impact stems from deliberate attention to usability alongside technical infrastructure.
+
+Critical design choices enabled broad adoption beyond well-resourced institutions. First, the project uses MongoDB for its backend with JSON-based data formats and well-documented RESTful APIs, prioritizing accessibility over domain-specific complexity~\cite{ong2013python}. Second, extensive documentation and tutorials target both computational researchers and experimentalists. Third, clear data provenance and versioning allow users to trace computational parameters and reproduce results. Fourth, governance mechanisms incorporate community feedback into curation priorities.
+
+The Materials Project now serves over 600,000 registered users globally, with sustained institutional investment spanning over a decade demonstrating that infrastructure democratization requires long-term commitment rather than short-term grants~\cite{persson2025accelerated}. Its success illustrates that when data infrastructure receives appropriate community governance and continuous support, researchers at under-resourced institutions can participate meaningfully in computational discovery.
+
+
+\subsection*{Solution Four: Building Accessible and Sustainable Infrastructure}
+
+\paragraph{Efficient Model Sharing and Deployment}
+
+Democratization requires infrastructure for sharing not just trained models but entire scientific AI pipelines. Scientific models often require complex preprocessing, specialized evaluation, and careful uncertainty quantification that generic model repositories don't support adequately. 
+
+Model efficiency becomes critical for equitable access. Quantization, pruning, and knowledge distillation can dramatically reduce computational requirements while preserving scientific accuracy~\cite{dantas2024comprehensive}, but these techniques need adaptation for scientific applications rather than simply borrowing consumer-focused optimizations~\cite{marino2023deep}. For instance, scientific models must maintain calibrated uncertainty estimates even after compression. Edge deployment strategies are particularly important for field research, remote laboratories, and institutions with limited computational infrastructure~\cite{fahim2021hls4ml}.
+
+\paragraph{Community-Owned Infrastructure and Sustainable Funding}
+
+
+Sustainable infrastructure depends on community ownership rather than reliance on commercial platforms or individual institutions. Open source projects like Jupyter, Conda, and the Scientific Python ecosystem illustrate successful community-driven models that serve broad research needs. Provenance tracking records the origins and transformations of datasets and analyses, essential for reproducible research~\cite{jacobsen2020fair}.
+
+
+
+
+Building this infrastructure is critical, but so is investment in outreach and dissemination. Valuable resources already exist---such as free compute, storage, and API credits from NAIRR~\cite{nsf_nairr_2024}, OSPool~\cite{osg_pool}, and Hugging Face~\cite{huggingface_storage_limits_2025}---yet often go unused because potential users remain unaware of them. Without active education and visibility, infrastructure risks being underutilized.
+
+The central challenge is sustainable funding that supports both long-term development and the communication strategies needed for adoption. Infrastructure takes years of effort, but traditional research funding favors novelty over maintenance~\cite{crawford2024nasa}. Addressing this gap will require mechanisms that combine support for infrastructure and dissemination, through consortium models, government investment, or hybrid public–private partnerships~\cite{chanzuckerberg2024eoss}.
+
+\paragraph{Case Study: Open-Source and Federated Infrastructure}
+
+Several initiatives demonstrate viable models for community-owned AI infrastructure. The Hugging Face Hub provides free hosting for over 1 million models, datasets, and applications with built-in version control, standardized metadata, and collaborative features~\cite{wolf2020huggingface}. Its success stems from reducing friction: researchers can share artifacts with simple commands, discover relevant work through search, and reproduce results through integrated tools. The platform's support for diverse modalities (text, images, scientific data) and integration with standard ML frameworks (PyTorch, TensorFlow, JAX) illustrate how infrastructure can serve broad communities without requiring specialized expertise.
+
+The Open Science Grid (OSG) exemplifies sustainable community governance for high-throughput computing. Operated through a consortium model with NSF and DOE support since 2004, OSG provides US-based researchers with access to distributed computing resources across participating institutions~\cite{pordes2007opensciencegrid, sfiligoi2009osg}. Its federated architecture allows institutions to contribute resources while maintaining local control, addressing both computational access and data sovereignty concerns. The consortium model distributes operational costs and decision-making, creating resilience against single points of failure.
+
+These examples share critical features: sustainable funding mechanisms (commercial revenue or government investment), active user communities shaping development priorities, low barriers to entry with progressive feature disclosure, and explicit attention to onboarding and documentation. However, both depend on stable institutional support that many scientific domains lack, highlighting continued need for policy interventions recognizing infrastructure as essential research capacity rather than discretionary spending.
+
+\section*{Discussion}
+AI systems already provide meaningful value to scientists by accelerating literature synthesis, assisting with data and code workflows, and helping researchers navigate rapidly expanding knowledge domains. Yet these successes underscore the deeper gap between automating scientific tasks and advancing scientific discovery. Scientific reasoning requires mechanistic understanding, experimental grounding, and participation in community norms. These dimensions are not captured by models optimized for textual correlations. Narratives describing AI systems as “autonomous scientists” blur this distinction and risk diverting attention from the structural roots of the barriers scientists encounter, such as misaligned institutional incentives, incompatible data practices embedded in long-standing workflows, and the absence of shared experimental constraints that give scientific results meaning.
+
+Across disciplines, these obstacles persist for structural reasons rather than because individual researchers fail to coordinate. Data standards must compete with entrenched legacy formats that laboratories have little reason or support to abandon. Benchmark fragmentation reflects the lack of neutral organizations with stable funding to steward collective resources. Infrastructural inequity arises from decades of concentrated investment in a small number of well-resourced institutions. The labor required to address these gaps, including data curation, documentation, and infrastructure maintenance, remains undervalued in academic reward structures that prioritize novel results instead of durable contributions. Interdisciplinary collaboration is shaped by similar constraints. Domain experts often lack access to ML training because curricula lag behind research needs, while ML researchers frequently underappreciate domain-specific limitations because research incentives reward methodological novelty rather than deep domain engagement. Even the uneven adoption of new computational tools is influenced by these structural patterns, since institutions with limited compute or staffing face prohibitive entry costs.
+
+These conditions suggest that the transformative potential of AI for science depends on strengthening the sociotechnical systems in which AI tools operate, rather than relying on increasingly autonomous models. Durable and community-governed benchmarks, practical and enforceable data standards, infrastructure aligned with scientific workflows, and training pathways that bridge epistemic and methodological divides are all essential. Importantly, effective solutions must confront the structural causes of current barriers by realigning incentives, providing stable long-term funding, and creating governance mechanisms that can outlast individual projects. AI will accelerate discovery when scientific communities are able to sustain shared resources, harmonized evaluation practices, and collective stewardship. Progress will come from coordinated communities, not from models acting in isolation from the social and institutional dynamics that shape scientific work.
+
+\paragraph{Limitations}
+
+This work synthesizes challenges across a wide range of scientific domains—biology, chemistry, materials science, physics, and climate science—to highlight structural patterns. While these themes are broadly shared, the specific constraints and opportunities vary by field. As a result, some recommendations may need adaptation for particular subdisciplines or regulatory environments. In addition, several of the arguments rely on studies and surveys that do not encompass the full diversity of scientific institutions, especially in underrepresented regions. The rapid pace of progress in machine learning also means that some technical limitations discussed here may evolve, even if the underlying social and institutional dynamics persist. Finally, our discussion of governance and incentives is necessarily high-level; implementing these ideas would require detailed policy design and negotiation among stakeholders.
+
+\paragraph{Future Work}
+
+Future research should investigate how these sociotechnical barriers manifest within specific research communities in order to generate actionable guidance that is sensitive to local norms and constraints. Comparative studies of successful and unsuccessful attempts to establish data standards, shared benchmarks, or community-governed infrastructure would clarify which governance models best support long-term coordination. On the technical side, research into models that incorporate mechanistic priors, integrate with simulation and experimental feedback loops, and provide principled uncertainty quantification may help align AI systems more closely with scientific reasoning. Global-scale studies of compute access and capacity building are also needed to ensure that progress in AI for science benefits a broad scientific community rather than deepening existing disparities.
+
+
+
+\section*{RESOURCE AVAILABILITY}
+
+%%%  The resource availability section is required 
+%%%  for all research articles. This component 
+%%%  has 3 subsections: "lead contact," "materials 
+%%%  availability," and "data and code availability." 
+%%%  All 3 subsections must be included, even if no 
+%%%  unique materials were generated in the study. 
+%%%  Do not edit or change the names of the subheadings. 
+%%%  No other subheadings or text are allowed in the 
+%%%  resource availability section.
+
+\subsection*{Lead contact}
+
+%%%  Authors are required to designate a lead contact, 
+%%%  who will be responsible for communication with 
+%%%  the journal before and after publication and is 
+%%%  the arbiter of disputes, including concerns 
+%%%  related to reagents or resource sharing. Only 
+%%%  one author can be named the lead contact, and 
+%%%  only the lead contact’s information may be 
+%%%  provided in this section.
+
+Requests for further information and resources should be directed to and will be fulfilled by the lead contact, Avijit Ghosh (avijit@huggingface.co).
+
+\subsection*{Materials availability}
+
+%%%  This subsection must include a statement describing 
+%%%  the availability of newly generated materials 
+%%%  associated with the paper, including any conditions 
+%%%  for access. If there are no newly generated materials 
+%%%  associated with the paper, the statement should 
+%%%  state this, e.g.: This study did not generate new 
+%%%  materials.
+
+This perspective article did not generate new materials, reagents, or experimental resources.
+
+\subsection*{Data and code availability}
+
+%%%  All original research papers must include a 
+%%%  comprehensive and accurate “data and code 
+%%%  availability” statement within the “resource 
+%%%  availability” component of the paper before it 
+%%%  is accepted for publication. These statements 
+%%%  are structured and consist of three bulleted 
+%%%  components. Each component must be present.
+This perspective article did not generate new datasets or code. All cited datasets and software are available through their respective publications and repositories as referenced throughout the text. 
+
+\section*{ACKNOWLEDGMENTS}
+
+%%%  Use this section to acknowledge contributions 
+%%%  from non-authors and list funding sources, 
+%%%  including grant numbers.
+We would like to acknowledge the feedback of Yacine Jernite and Irene Solaiman during the preparation of this paper. We also thank the anonymous reviewers and the Patterns editor, Dr. Andrew Hufton, for valuable pointers in the improvement of the manuscript.
+
+\section*{AUTHOR CONTRIBUTIONS}
+
+%%%  This component is required for most research papers. 
+%%%  Mention each individual author with a statement 
+%%%  outlining the contribution of each author to the work.
+
+A.G Conceptualized this paper. G.C provided background technical knowledge. Both collaborated equally on the substance of the paper. A.G handled the writing and journal correspondence for the paper.
+
+\section*{DECLARATION OF INTERESTS}
+
+%%%  This component is required for all articles, even 
+%%%  if the authors have no competing interests; if 
+%%%  this is the case, insert "The authors declare no 
+%%%  competing interests." Please refer to the 
+%%%  declaration of interests policy: 
+%%%  https://www.cell.com/declaration-of-interests
+
+Both authors are employees and shareholders of Hugging Face, which is cited in this work as one provider of AI research infrastructure. While our position provides us a unique vantage point about progress in the open scientific community, in this paper we have drawn our evidence from peer-reviewed scientific literature, publicly documented case studies, and widely reported challenges across diverse institutions. Our recommendations focus on community-wide standards and practices rather than specific vendors. The root causes of inequity and fragmentation in AI for science apply across the ecosystem, independent of any single company or platform. 
+
+\section*{DECLARATION OF GENERATIVE AI AND AI-ASSISTED TECHNOLOGIES}
+
+%%%  If generative AI and AI-assisted technologies 
+%%%  were used in the writing process, this must 
+%%%  be disclosed in the paper. This declaration 
+%%%  does not apply to the use of basic tools for 
+%%%  checking grammar, spelling, references, etc. 
+%%%  If you have nothing to disclose, please do not 
+%%%  include this component.
+
+During the preparation of this work, the authors used Claude Sonnet 4.5 (Anthropic) for editing suggestions and drafting assistance. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the publication.
+
+\newpage
+
+\bibliography{ref}
+
+
+
+\bigskip
+
+%%%  In your References, please include only articles 
+%%%  that are published (online publication and 
+%%%  preprint servers are OK). Unpublished data, 
+%%%  submitted and/or accepted manuscripts, abstracts, 
+%%%  and personal communications should be cited within 
+%%%  the text only ("unpublished data," "data not 
+%%%  shown," "Alice Smith, personal communication") 
+%%%  and not included in the references list. Personal 
+%%%  communication should be documented by a letter 
+%%%  of permission. Whenever possible, please make 
+%%%  sure your .bib file has the complete author lists 
+%%%  for each item (at minimum, the first 11 authors 
+%%%  listed). 
+
+\newpage
+
+
+
+
+
+\end{document}
